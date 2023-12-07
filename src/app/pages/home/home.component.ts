@@ -28,20 +28,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  purchase(item: Course) {
-    if (!this.authenticationService.currentUserValue?.id) {
-      this.errorMessage = 'You should login to buy a course';
-      return;
-    }
+  // purchase(item: Course) {
+  //   if (!this.authenticationService.currentUserValue?.id) {
+  //     this.errorMessage = 'You should login to buy a course';
+  //     return;
+  //   }
 
-    const purchase = new Purchase(this.authenticationService.currentUserValue.id, item.id, item.title, item.price);
+  //   const purchase = new Purchase(this.authenticationService.currentUserValue.id, item.id, item.title, item.price);
 
-    this.purchaseService.savePurchase(purchase).subscribe(data => {
-      this.infoMessage = 'Mission is completed';
-    }, err => {
-      this.errorMessage = 'Unexpected error occurred.';
-      console.log(err);
-    });
-  }
+  //   this.purchaseService.savePurchase(purchase).subscribe(data => {
+  //     this.infoMessage = 'Mission is completed';
+  //   }, err => {
+  //     this.errorMessage = 'Unexpected error occurred.';
+  //     console.log(err);
+  //   });
+  // }
+
 
 }

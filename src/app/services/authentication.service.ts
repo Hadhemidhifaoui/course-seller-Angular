@@ -4,8 +4,9 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../models/user.models";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import { environment } from 'src/environments/environment.development';
 
-const API_URL = 'http://localhost:5555/api/v1/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ const API_URL = 'http://localhost:5555/api/v1/auth';
 export class AuthenticationService {
   public currentUser: Observable<User>;
   private currenUserSubject: BehaviorSubject<User>;
+   API_URL = 'http://localhost:5555/api/v1/auth';
 
   constructor(private http: HttpClient) {
     let storageUser;
@@ -30,7 +32,7 @@ export class AuthenticationService {
   }
 
   login(user: User): Observable<any> {
-    return this.http.post<any>(API_URL + '/authenticate', user).pipe(
+    return this.http.post<any>(this.API_URL + '/authenticate', user).pipe(
       map(response => {
         if (response) {
           localStorage.setItem('currentUser', JSON.stringify(response));
@@ -41,12 +43,22 @@ export class AuthenticationService {
     );
   }
 
-  register(user: User): Observable<any> {
-    return this.http.post(API_URL + '/register', user);
+  Register(user: User): Observable<any> {
+    return this.http.post(this.API_URL + '/register', user);
   }
 
+  signup(signuprequest:any){
+    return this.http.post(`${environment.secondbaseurl}/api/v1/auth/register`,signuprequest)
+  }
+  signin(loginrequest:any){
+    return this.http.post(`${environment.secondbaseurl}/api/v1/auth/authenticate`,loginrequest)
+ }
   logOut() {
     localStorage.removeItem('currentUser');
     this.currenUserSubject.next(new User);
+  }
+
+  sendEmail(emailrequest:any){
+    return this.http.post(`${environment.secondbaseurl}/api/v1/auth/send-email`,emailrequest)
   }
 }

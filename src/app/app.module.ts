@@ -5,26 +5,33 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UnauthorizesComponent } from './pages/unauthorizes/unauthorizes.component';
 import { HomeComponent } from './pages/home/home.component';
 import {HttpClientModule} from "@angular/common/http";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CourseSaveComponent } from './components/course-save/course-save.component';
 import { CourseDeleteComponent } from './components/course-delete/course-delete.component';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
-import { ChatboxComponent } from './pages/chatbox/chatbox.component';
 import { AminCourseComponent } from './amin-course/amin-course.component';
-import { SidebarComponent } from './amin-course/sidebar/sidebar.component';
+
+import { LayoutComponent } from './pages/layout/layout.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
+import { FooterComponent } from './pages/footer/footer.component';
+
+import { ToastrModule } from 'ngx-toastr';
+import { SignupComponent } from './pages/signup/signup.component';
+import { ToastComponent } from './pages/toast/toast.component';
+import { AchatComponent } from './pages/achat/achat.component';
+import { TestComponent } from './pages/test/test.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
     ProfileComponent,
     AdminComponent,
     NotFoundComponent,
@@ -32,16 +39,25 @@ import { SidebarComponent } from './amin-course/sidebar/sidebar.component';
     HomeComponent,
     CourseSaveComponent,
     CourseDeleteComponent,
-    ChatboxComponent,
     AminCourseComponent,
-    SidebarComponent
+
+    LayoutComponent,
+    NavbarComponent,
+    FooterComponent,
+    SignupComponent,
+    ToastComponent,
+    AchatComponent,
+    TestComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

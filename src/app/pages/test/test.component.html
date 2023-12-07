@@ -1,0 +1,27 @@
+<!-- list-tests.component.html -->
+<div *ngFor="let test of tests" style="margin-bottom: 2rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px;">
+    <h3 style="color: #0056b3;">{{ test.name }}</h3>
+    <p style="color: #666;">{{ test.description }}</p>
+    <div *ngFor="let question of test.questions" style="margin-top: 1rem; padding: 0.5rem; background-color: #f9f9f9; border-left: 3px solid #0056b3;">
+      <p style="font-weight: bold; color: #333;">{{ question.text }}</p>
+      <div *ngIf="question.type === 'Choix Multiple'">
+        <!-- Utilisez des checkboxes pour les questions à choix multiples -->
+        <div *ngFor="let suggestion of question.suggestions" style="margin: 0.5rem 0;">
+          <input type="checkbox" [id]="suggestion.id" [value]="suggestion.text" style="margin-right: 0.5rem;">
+          <label [for]="suggestion.id">{{ suggestion.text }}</label>
+        </div>
+      </div>
+      <div *ngIf="question.type !== 'Choix Multiple'">
+        <!-- Utilisez des radios pour les questions à choix unique -->
+        <div *ngFor="let suggestion of question.suggestions" style="margin: 0.5rem 0;">
+          <input type="radio" [name]="question.id" [id]="suggestion.id" [value]="suggestion.text" style="margin-right: 0.5rem;">
+          <label [for]="suggestion.id">{{ suggestion.text }}</label>
+        </div>
+      </div>
+    </div>
+</div>
+<form >
+    <!-- Votre code pour les questions ici... -->
+    <button type="submit" class="submit-button">Soumettre</button>
+  </form>
+  

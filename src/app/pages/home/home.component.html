@@ -1,37 +1,35 @@
-<div class="container p-3">
-
-  <div class="alert alert-danger" *ngIf="errorMessage">
-    {{errorMessage}}
+<body>
+  <!-- Page Preloder -->
+  <div id="preloder">
+      <div class="loader"></div>
   </div>
+  <!-- Header Section Begin -->
+  <app-navbar></app-navbar>
+  <!-- Header End -->
+  <!-- Hero Section Begin -->
+  <!-- Hero Section End -->
+  <!-- Banner Section Begin -->
+  <!-- Banner Section End -->
+  <!-- Women Banner Section Begin -->
+  <!-- women Banner Section End -->
+  <!-- Deal Of The Week Section Begin-->
+  <!-- Deal Of The Week Section End -->
+  <!-- Man Banner Section Begin -->
+  <!-- Man Banner Section End -->
+  <!-- Instagram Section Begin -->
+  <!-- Instagram Section End -->
+  <router-outlet></router-outlet>
+  <!-- Latest Blog Section Begin -->
 
-  <div class="alert alert-success" *ngIf="infoMessage">
-    {{infoMessage}}
-  </div>
+  <!-- Latest Blog Section End -->
 
-  <div class="d-flex flex-wrap">
-    <div
-      *ngFor="let item of courseList; index as ind"
-      class="card m-3" style="width: 300px; background-color: #f8f7f7;">
+  <!-- Partner Logo Section Begin -->
 
-      <div class="card-body">
-        <h5 class="card-title text-uppercase">{{item.title}}</h5>
-        <div class="card-subtitle text-muted">{{item.subtitle}}</div>
-      </div>
+  <!-- Partner Logo Section End -->
 
-      <fa-icon [icon]="faUserGraduate" class="ms-auto me-auto course-icon"></fa-icon>
+  <!-- Footer Section Begin -->
 
-      <div class="row mt-2 p-3">
-        <div class="col-6 mt-2 ps-4">
-          {{item.price | currency: 'USD'}}
-        </div>
-        <div class="col-6">
-          <button class="btn btn-outline-success w-100" (click)="purchase(item)">
-            Buy
-          </button>
-        </div>
-      </div>
+  <!-- Footer Section End -->
 
-    </div>
-  </div>
 
-</div>
+</body>

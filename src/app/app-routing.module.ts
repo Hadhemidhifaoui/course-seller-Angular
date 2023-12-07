@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -9,39 +8,25 @@ import { UnauthorizesComponent } from './pages/unauthorizes/unauthorizes.compone
 import { HomeComponent } from './pages/home/home.component';
 //import { AuthGuard } from './guards/auth.guard';
 import { Role } from './models/role.enum';
-import { ChatboxComponent } from './pages/chatbox/chatbox.component';
 import { AminCourseComponent } from './amin-course/amin-course.component';
+import { LayoutComponent } from './pages/layout/layout.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { ToastComponent } from './pages/toast/toast.component';
+import { AchatComponent } from './pages/achat/achat.component';
+import { TestComponent } from './pages/test/test.component';
+
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-
-  {path: 'home', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'chatbox', component: ChatboxComponent},
-  {path: 'register', component: RegisterComponent},
-
-  { path: 'profile',
-    component: ProfileComponent,
-    // canActivate: [AuthGuard],
-    // data: {roles: [Role.ADMIN, Role.USER]}
-  },
-
-  { path: 'admin',
-    component: AdminComponent,
-    // canActivate: [AuthGuard],
-    // data: {roles: [Role.ADMIN]}
-  },
-
-  {path: '404', component: NotFoundComponent},
-  {path: '401', component: UnauthorizesComponent},
-  {
-    path: 'admincourse',
-    component: AminCourseComponent,
-
-
-
-  
-  },
+  {path:'',component:HomeComponent,children:[
+    {path:'',component:LayoutComponent},
+    {path:'signup',component:SignupComponent},
+    {path:'login',component:LoginComponent},
+  ] 
+},
+{path:'profile',component:ProfileComponent},
+{path:'toast',component:ToastComponent},
+{path:'achat',component:AchatComponent},
+{path:'test',component:TestComponent}
 ];
 
 @NgModule({
