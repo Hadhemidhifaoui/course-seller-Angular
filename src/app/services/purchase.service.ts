@@ -13,6 +13,9 @@ const API_URL = 'http://localhost:5555/gateway/purchase';
 })
 export class PurchaseService extends RequestBaseService {
 
+  private baseUrl = 'http://localhost:5555/gateway/purchase';
+  private urluser = `http://localhost:5555/api/user`;
+  private urlcourse = 'http://localhost:5555/gateway/course';
   constructor(authenticationService: AuthenticationService, http: HttpClient) {
     super(authenticationService, http);
   }
@@ -23,5 +26,15 @@ export class PurchaseService extends RequestBaseService {
 
   getAllPurchaseItems(): Observable<any> {
     return this.http.get(API_URL, {headers: this.getHeaders});
+  }
+  getAllPurchases(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/all`);
+  }
+  getUserById(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.urluser}/${userId}`);
+  }
+
+  getCourseById(courseId: string): Observable<any> {
+    return this.http.get<any>(`${this.urlcourse}/${courseId}`);
   }
 }

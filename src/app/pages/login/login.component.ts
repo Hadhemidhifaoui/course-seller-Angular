@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
+  user = new User();
   faUser = faUserCircle;
   errorMessage: string = "";
 
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       if (userRole === 'USER') {
         this.router.navigate(['/profile']);
       } else if (userRole === 'ADMIN') {
-        this.router.navigate(['/orgadmin']);
+        this.router.navigate(['/admincourse']);
       }
 
       //this.router.navigate(['/profile']);

@@ -1,0 +1,90 @@
+<br>
+<br>
+
+  <div class="container grid px-6 mx-auto">
+    <div class="flex items-center justify-between p-4 bg-purple-600 rounded-lg shadow-md">
+      <a routerLink="/admincourse/tests" class="flex items-center text-sm font-semibold text-purple-100 focus:outline-none focus:shadow-outline-purple">
+        <svg
+          class="w-4 h-4 mr-2"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.293 4.293a1 1 0 00-1.414-1.414l-7 7a1 1 0 000 1.414l7 7a1 1 0 001.414-1.414L6.414 12H19a1 1 0 100-2H6.414l5.879-5.879z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Retour
+      </a>
+
+      <h1 class="text-2xl font-semibold text-gray-700" style="color: white;">
+         Ajouter un Test
+      </h1>
+
+      <a class="hidden"></a> <!-- Spacer -->
+    </div>
+<br>
+<div class="container">
+  <form [formGroup]="testForm" (ngSubmit)="addTest()" class="test-form">
+    <div class="form-group">
+      <label for="testName"><h4>Nom du Test</h4></label>
+      <input type="text" class="form-control" id="testName" placeholder="le nom du test" formControlName="testName">
+    </div>
+
+    <!-- Champ de la description du test -->
+    <div class="form-group">
+      <label for="testDescription"><h4>Description du test</h4></label>
+      <input type="text" id="testDescription" class="form-control" placeholder="Description du Test" formControlName="testDescription">
+    </div>
+
+    <div class="form-group">
+
+      <label for="course_id"><h4>Choisir un cours</h4></label>
+      <select id="course_id" formControlName="course_id" class="form-control">
+        <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+      </select>
+
+
+    </div>
+
+
+    <!-- Questions -->
+    <div formArrayName="questions">
+      <div *ngFor="let question of questionControls.controls; let i = index" class="question-container">
+        <div class="line" [formGroupName]="i">
+          <span> Question :{{i + 1}} </span>
+          <br>
+          <div class="input-group mb-3">
+            <select class="custom-select" id="inputGroupSelect02" formControlName="questionType" (change)="toggleQuestionType(i)">
+              <option selected disabled>Choisissez le type du Question</option>
+              <option value="Choix Unique">Choix Unique</option>
+              <option value="Choix Multiple">Choix Multiple</option>
+            </select>
+
+            <!-- <button type="button" (click)="toggleSuggestions(i)" class="toggle-suggestions-button">Toggle Suggestions</button> -->
+          </div>
+          <label for="questionContent">Contenu du Question</label>
+          <input type="text" id="questionContent" formControlName="questionContent" class="form-control">
+
+          <div formArrayName="suggestionContents" class="suggestions-container" *ngIf="isMultipleChoiceQuestion(i)">
+            <div *ngFor="let suggestion of suggestionControls(i).controls; let j = index" [formGroupName]="j" class="suggestion">
+              <input formControlName="suggestionContent" placeholder="Suggestion {{ j + 1 }}" class="form-control" required>
+              <button type="button" (click)="removeSuggestion(i, j)" class="remove-button">-</button>
+            </div>
+            <button type="button" (click)="addSuggestion(i)" class="add-button-s">+</button>
+          </div>
+
+<button type="button" (click)="removeQuestion(i)" class="remove-button">Supprimer Question</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons d'ajout dynamique -->
+    <div class="button-container">
+      <button type="button" (click)="addQuestion()" class="add-button">Ajouter Question</button>
+    </div>
+
+    <button type="submit" class="submit-button">Add Test</button>
+  </form>
+</div>

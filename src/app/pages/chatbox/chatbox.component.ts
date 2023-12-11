@@ -1,7 +1,8 @@
-import * as Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
-import { AfterViewChecked, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 
+
+import { AfterViewChecked, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 import { HttpClient } from '@angular/common/http';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -17,11 +18,12 @@ import { Role } from 'src/app/models/role.enum';
 })
 export class ChatboxComponent implements OnInit , AfterViewChecked {
   messages: any = []
-  me: string = localStorage.getItem('userId')!
+  me: any = localStorage.getItem('userId')
   messageInput: any
   users: User[] = [] = []
   userClick : any
   iHaveMessage : any = 0
+  stompClient: any
   currentUser$: Observable<User | null> = this.userService.getUser(this.me);
 
   @ViewChild('myScrollContainer') myScrollContainer: any;
@@ -51,10 +53,10 @@ export class ChatboxComponent implements OnInit , AfterViewChecked {
 }
 
 
-getUserProfileImageById(userId: string): string {
-  const user = this.users.find((u: User) => u.id === userId);
-  return user && user.profileImage ? user.profileImage : '';
-}
+// getUserProfileImageById(userId: string): string {
+//   const user = this.users.find((u: User) => u.id === userId);
+//   return user && user.profileImage ? user.profileImage : '';
+// }
 
 
 
@@ -87,11 +89,12 @@ scrollToBottom(): void {
     this.userService.getUsersByRole(role).subscribe(
       data => {
         this.users = data;
-        console.log(data)
+
+        console.log("*********",data , this.me)
 
         this.users.reverse()
         this.users = this.users.filter((i:any)=>{
-          return i.id !== this.me
+          return i.id != this.me
         })
       console.log(this.users)
       },
@@ -101,19 +104,38 @@ scrollToBottom(): void {
     );
   }
 
-  stompClient: any
+
   connect() {
 
     var url = `http://localhost:5555/ws`;
     var socket = new SockJS(url);
+
+
+// socket.onopen = function () {
+//   console.log('SockJS connection opened');
+// };
+
+// socket.onclose = function () {
+//   console.log('SockJS connection closed');
+// };s
+
+// socket.onerror = function (error: any) {
+//   console.error('SockJS error:', error);
+// };
     this.stompClient = Stomp.over(socket);
+    // const headers = { withCredentials: true };
+
+// this.stompClient.beforeConnect = function () {
+//   this._transportOptions.headers = headers;
+// };
     let thats = this;
-    this.stompClient.withCredentials = true;
+    // this.stompClient.withCredentials = true;
     thats.stompClient.connect({}, function (frame: any) {
-      console.log('Connected: ' + frame);
+      // console.log('Connected: ' + frame);
 
       thats.stompClient.subscribe("/topic/"+thats.me, function (message: any) {
         thats.showMessage(message)
+        // thats.reconnect();
       });
 
 
@@ -123,6 +145,14 @@ scrollToBottom(): void {
 
     });
   }
+
+  reconnect() {
+    console.log('Reconnecting...');
+    // Implement your reconnect logic here
+    // For example, you can call the connect() method again
+    this.connect();
+  }
+
 
 
   showMessagePause(msg: any) {
@@ -208,7 +238,7 @@ scrollToBottom(): void {
     }
     const messageSender = this.me;
     const messageRec = user.id;
-        this.http.get<any[]>(`http://localhost:5555/conversation/${messageSender}/${messageRec}`).subscribe(res=>{
+        this.http.get<any[]>(`http://localhost:5555/api/messages/conversation/${messageSender}/${messageRec}`).subscribe(res=>{
           console.log(res)
           this.messages=res
         })

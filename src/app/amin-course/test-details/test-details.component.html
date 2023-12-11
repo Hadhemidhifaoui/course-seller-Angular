@@ -1,0 +1,47 @@
+<br>
+<br>
+<div class="container mx-auto">
+  <div class="container grid px-6 mx-auto">
+    <div class="flex items-center justify-between p-4 bg-purple-600 rounded-lg shadow-md">
+      <a routerLink="/admincourse/tests" class="flex items-center text-sm font-semibold text-purple-100 focus:outline-none focus:shadow-outline-purple">
+        <svg
+          class="w-4 h-4 mr-2"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12.293 4.293a1 1 0 00-1.414-1.414l-7 7a1 1 0 000 1.414l7 7a1 1 0 001.414-1.414L6.414 12H19a1 1 0 100-2H6.414l5.879-5.879z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Retour
+      </a>
+
+      <h1 class="text-2xl font-semibold text-gray-700" style="color: white;">
+         Les Details du Test
+      </h1>
+
+      <a class="hidden"></a> <!-- Spacer -->
+    </div>
+<br>
+
+<div *ngIf="test" class="test-details-container">
+  <h2>{{ test.name }}</h2>
+  <p>{{ test.description }}</p>
+  <p class="course-info" *ngIf="test.course">Course: {{ test.course.title }}</p>
+
+  <ul class="question-list">
+    <li *ngFor="let question of test.questions" class="question-item">
+      <div class="question-container">
+        <div class="question-text">{{ question.text }}</div>
+        <ul class="suggestion-list">
+          <li *ngFor="let suggestion of question.suggestions" class="suggestion-item">
+            {{ suggestion.text }}
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- <pre>{{ test | json }}</pre> -->

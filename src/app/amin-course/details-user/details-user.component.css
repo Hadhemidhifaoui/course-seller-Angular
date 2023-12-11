@@ -1,0 +1,36 @@
+/* user-details.component.css */
+
+div.user-details-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #af4cad;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #F9F9F9;
+}
+
+h2 {
+  color: #af4cad;
+  border-bottom: 2px solid #af4cad;
+  padding-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+strong {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Add some spacing and styling for the createTime */
+li.create-time {
+  font-style: italic;
+  color: #777;
+}

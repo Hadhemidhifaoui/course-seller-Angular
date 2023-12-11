@@ -11,6 +11,17 @@ import { HomeComponent } from './pages/home/home.component';
 import { Role } from './models/role.enum';
 import { ChatboxComponent } from './pages/chatbox/chatbox.component';
 import { AminCourseComponent } from './amin-course/amin-course.component';
+import { UtilisateursComponent } from './amin-course/utilisateurs/utilisateurs.component';
+import { CoursComponent } from './amin-course/cours/cours.component';
+import { TestsComponent } from './amin-course/tests/tests.component';
+import { ReponsesComponent } from './amin-course/reponses/reponses.component';
+import { UpdateUserComponent } from './amin-course/update-user/update-user.component';
+import { DetailsUserComponent } from './amin-course/details-user/details-user.component';
+import { AddCoursComponent } from './amin-course/add-cours/add-cours.component';
+import { UpdateCoursComponent } from './amin-course/update-cours/update-cours.component';
+import { AddTestComponent } from './amin-course/add-test/add-test.component';
+import { TestDetailsComponent } from './amin-course/test-details/test-details.component';
+import { AchatComponent } from './amin-course/achat/achat.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -34,13 +45,31 @@ const routes: Routes = [
 
   {path: '404', component: NotFoundComponent},
   {path: '401', component: UnauthorizesComponent},
+
   {
     path: 'admincourse',
     component: AminCourseComponent,
+    children: [
+      {
+        path: '',
+        component: UtilisateursComponent ,
+      },
+      { path: 'utilisateur/update/:id', component: UpdateUserComponent },
+      { path: 'utilisateur/:userId', component: DetailsUserComponent },
+
+      { path: 'cours', component: CoursComponent },
+      { path: 'cours/add', component: AddCoursComponent },
+      { path: 'cours/update/:id', component: UpdateCoursComponent },
+
+      { path: 'tests', component: TestsComponent },
+      { path: 'tests/add', component: AddTestComponent },
+      { path: 'tests/test-details/:id', component: TestDetailsComponent },
+
+      { path: 'reponses', component: ReponsesComponent },
+      { path: 'achat', component: AchatComponent },
 
 
-
-  
+    ],
   },
 ];
 

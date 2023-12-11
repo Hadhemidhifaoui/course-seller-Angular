@@ -14,9 +14,6 @@
             <h3>All Courses</h3>
           </div>
 
-          <div class="col-6 text-end">
-            <button class="btn btn-primary" (click)="createCourseRequest()">Create Course</button>
-          </div>
 
         </div>
 
@@ -39,10 +36,7 @@
             <td>{{item.title}}</td>
             <td>{{item.price | currency: 'USD'}}</td>
             <td>{{item.createTime | date: 'medium'}}</td>
-            <td>
-              <button class="btn btn-primary me-1" (click)="editCourseRequest(item)">Edit</button>
-              <button class="btn btn-danger" (click)="deleteCourseRequest(item)">Delete</button>
-            </td>
+
           </tr>
           </tbody>
 
@@ -55,6 +49,4 @@
   </div>
 </div>
 
-<app-course-save [course]="selectedCourse" (save)="saveCourseWatcher($event)"></app-course-save>
 
-<app-course-delete (confirmed)="deleteCourse()"></app-course-delete>

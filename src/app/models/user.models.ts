@@ -1,11 +1,18 @@
 import {Role} from "./role.enum";
+import { Statut} from "./statut.enum";
 
 export class User {
-  id: string|undefined;
+  id: string = "";
   username: string = "";
-  password: string = "";
+
   name: string = "";
-  token: string = "";
+  statut?: Statut;
+  phone: string = "";
+  adresse: string = "";
+  createTime?: Date;
+  image?: string | null;
+  token?: string = "";
   role: Role = Role.USER;
-  profileImage?: string | null;
+  password: string = "";
+
 }

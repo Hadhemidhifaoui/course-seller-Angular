@@ -1,4 +1,4 @@
-<style>
+ <style>
   .clickdisc {
     background-color: rgba(128, 128, 128, 0.183);
     border-radius: 10px;
@@ -29,9 +29,9 @@
                     style="justify-content: space-between; padding: 10px;">
                     <div>
                       <div class="d-flex">
-                        <img class="rounded-circle shadow avatar-sm mr-3"
-                        *ngIf="i.profileImage"
-                        [src]="i.profileImage">
+                     <img class="rounded-circle shadow avatar-sm mr-3"
+                        *ngIf="i.image"
+                        src="http://localhost:5555/api/user/files/{{i?.image}}">
                         <div>
                           <p style="font-weight: bold; margin-top: 10px; font-family: Arial, Helvetica, sans-serif;">
                             {{capitalizeFirstLetter(i.name)}}</p>
@@ -58,7 +58,7 @@
                     <div *ngIf="m.rec == this.userClick.id && m.sender == this.me">
                       <div class="d-flex flex-row-reverse mb-2" *ngIf="m.sender == me">
                         <div class="pr-4" *ngIf="currentUser$ | async as currentUser">
-                          <img *ngIf="currentUser.profileImage" [src]="getProfileImageSafeUrl(currentUser.profileImage)" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;">
+                         <img *ngIf="currentUser?.image" src="http://localhost:5555/api/user/files/{{currentUser?.image}}" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;"> 
 
 
 
@@ -84,7 +84,7 @@
 
                     <div *ngIf="m.rec == this.me && m.sender == this.userClick.id">
                       <div class="pr-4">
-                       <img [src]="this.userClick.profileImage " alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;">
+                      <img src="http://localhost:5555/api/user/files/{{userClick?.image}}" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;"> 
 </div>
 
                           <div class="left-chat-message fs-13 mb-2" *ngIf="m.sender !== me">
@@ -144,4 +144,5 @@
       });
     })(jQuery);
   </script>
+
 

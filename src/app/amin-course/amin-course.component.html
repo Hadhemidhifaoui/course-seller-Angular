@@ -1,8 +1,13 @@
-<div class="flex h-full">
-  <div class="fixed inset-0 z-50 bg-rgpd_secondary border-r border-gray-300 shadow-lg w-64">
-    <app-sidebar />
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900">
+  <app-sidebar></app-sidebar>
+  <div class="flex flex-col w-full overflow-hidden">
+    <app-header></app-header>
+
+    <div class="container mx-auto overflow-y-auto">
+  <router-outlet></router-outlet>
+      </div>
+
   </div>
-  <div class="flex-1 ml-64 bg-gray-50 pl-6 ">
-    <router-outlet></router-outlet>
-  </div>
+
 </div>
+
