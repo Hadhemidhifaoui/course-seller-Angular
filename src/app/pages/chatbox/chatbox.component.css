@@ -838,3 +838,13 @@ img.shadow {
     margin-right: 5px; /* Espacement entre la flèche et le texte */
   }
 
+  .notification {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #0074cc;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }

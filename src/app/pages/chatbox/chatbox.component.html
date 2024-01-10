@@ -1,3 +1,24 @@
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+  <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+      <h2 class="m-0" style="color: #06BBCB;"><i class="fa fa-book me-3"></i>DevNovate</h2>
+
+  </a>
+  <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ms-auto p-4 p-lg-0">
+       
+
+          <a routerLink="/signup" class="nav-item nav-link">Logout</a>
+
+
+      </div>
+
+  </div>
+</nav>
+
+
  <style>
   .clickdisc {
     background-color: rgba(128, 128, 128, 0.183);
@@ -5,14 +26,8 @@
   }
 </style>
 <br>
-<div class="back-arrow">
-  <a routerLink="/ui">
-    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 18l-6-6 6-6" />
-    </svg>
-    Retour
-  </a>
-</div>
+
+
 
 <div class="main-wrapper">
 
@@ -40,7 +55,7 @@
                     </div>
                     <div class="flex-shrink-0 margin-auto pl-2 pr-3">
                       <div class="d-flex flex-column">
-                        <p class="text-muted text-right fs-13 mb-2">08:21</p>
+                        <!-- <p class="text-muted text-right fs-13 mb-2">08:21</p> -->
                          <span class="round badge badge-light-success margin-auto"
                           *ngIf="countMessage(i.id) > 0">{{countMessage(i.id)}}</span>
                       </div>
@@ -55,65 +70,48 @@
               <div *ngIf="userClick" style="height: 500px; overflow: scroll;" #myScrollContainer class="d-flex flex-row">
                 <div class="w-100 p-3">
                   <div *ngFor="let m of messages">
-                    <div *ngIf="m.rec == this.userClick.id && m.sender == this.me">
-                      <div class="d-flex flex-row-reverse mb-2" *ngIf="m.sender == me">
-                        <div class="pr-4" *ngIf="currentUser$ | async as currentUser">
-                         <img *ngIf="currentUser?.image" src="http://localhost:5555/api/user/files/{{currentUser?.image}}" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;"> 
-
-
-
-
-
+                    <div *ngIf="m.rec == userClick.id && m.sender == me">
+                      <div class="d-flex flex-row-reverse mb-2">
+                        <div class="pr-4">
+                          <img *ngIf="currentUser$ | async as currentUser" src="http://localhost:5555/api/user/files/{{ currentUser?.image }}" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;">
 
                         </div>
-
-
-
                         <div class="right-chat-message fs-13 mb-2">
                           <div class="mb-0 mr-3 pr-4">
-
-                          <div class="d-flex flex-row">
-                        <div class="pr-2">{{m.content}}</div>
-
-                             </div>
-
+                            <div class="d-flex flex-row">
+                              <div class="pr-2">{{ m.content }}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div *ngIf="m.rec == this.me && m.sender == this.userClick.id">
+                    <div *ngIf="m.rec == me && m.sender == userClick.id">
                       <div class="pr-4">
-                      <img src="http://localhost:5555/api/user/files/{{userClick?.image}}" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;"> 
-</div>
-
-                          <div class="left-chat-message fs-13 mb-2" *ngIf="m.sender !== me">
-                            <div class="mb-0 mr-3 pr-4">
-
-                              <div class="d-flex flex-row">
-                            <div class="pr-2">{{m.content}}</div>
-
-                                 </div>
-
-                              </div>
+                        <img src="http://localhost:5555/api/user/files/{{ userClick?.image }}" alt="Image" style="border-radius: 30%; width: 30px; height: 30px; margin-left: 5px;">
+                      </div>
+                      <div class="left-chat-message fs-13 mb-2" *ngIf="m.sender !== me.id">
+                        <div class="mb-0 mr-3 pr-4">
+                          <div class="d-flex flex-row">
+                            <div class="pr-2">{{ m.content }}</div>
                           </div>
-
-                  </div>
-
+                        </div>
+                      </div>
                     </div>
-
-
                   </div>
-
-
                 </div>
+              </div>
+
+
+
 
 
 
               <div *ngIf="userClick" class="chat-search pl-3 pr-3">
                 <div class="input-group">
-                  <input type="text" [(ngModel)]="messageInput" (keyup.enter)="sendMessage()" class="form-control" placeholder="Write a message">
-                  <button class="btn btn-danger" (click)="sendMessage()">Send</button>
+                  <input type="text" [(ngModel)]="messageInput" (keyup.enter)="sendMessage(messageInput)" class="form-control" placeholder="Write a message">
+                  <button class="btn btn-primary" (click)="sendMessage(messageInput)">Send</button>
+
                 </div>
               </div>
 
@@ -124,25 +122,6 @@
       </div>
     </div>
 
-  <script>
-    (function ($) {
-      "use strict";
-      $('.scrollable-chat-panel').perfectScrollbar();
-      var position = $(".chat-search").last().position().top;
-      $('.scrollable-chat-panel').scrollTop(position);
-      $('.scrollable-chat-panel').perfectScrollbar('update');
-      $('.pagination-scrool').perfectScrollbar();
 
-      $('.chat-upload-trigger').on('click', function (e) {
-        $(this).parent().find('.chat-upload').toggleClass("active");
-      });
-      $('.user-detail-trigger').on('click', function (e) {
-        $(this).closest('.chat').find('.chat-user-detail').toggleClass("active");
-      });
-      $('.user-undetail-trigger').on('click', function (e) {
-        $(this).closest('.chat').find('.chat-user-detail').toggleClass("active");
-      });
-    })(jQuery);
-  </script>
 
 

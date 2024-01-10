@@ -69,11 +69,16 @@
 
           <div formArrayName="suggestionContents" class="suggestions-container" *ngIf="isMultipleChoiceQuestion(i)">
             <div *ngFor="let suggestion of suggestionControls(i).controls; let j = index" [formGroupName]="j" class="suggestion">
-              <input formControlName="suggestionContent" placeholder="Suggestion {{ j + 1 }}" class="form-control" required>
+              <div class="suggestion-content-container">
+                <input type="text" formControlName="suggestionContent" placeholder="Suggestion {{ j + 1 }}" class="form-control" required>
+                <input type="number" formControlName="note" placeholder="Note" class="form-control note-input">
+              </div>
               <button type="button" (click)="removeSuggestion(i, j)" class="remove-button">-</button>
             </div>
             <button type="button" (click)="addSuggestion(i)" class="add-button-s">+</button>
           </div>
+
+
 
 <button type="button" (click)="removeQuestion(i)" class="remove-button">Supprimer Question</button>
         </div>

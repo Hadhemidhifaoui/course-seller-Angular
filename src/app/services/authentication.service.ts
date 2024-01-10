@@ -6,6 +6,9 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 
 const API_URL = 'http://localhost:5555/api/v1/auth';
+const baseurl ='http://localhost:3333';
+const secondbaseurl="http://localhost:5555";
+const thirdbaseurl="http://localhost:4444";
 
 @Injectable({
   providedIn: 'root'
@@ -49,4 +52,14 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     this.currenUserSubject.next(new User);
   }
+
+  sendEmail(emailrequest:any){
+    return this.http.post(`${secondbaseurl}/api/v1/auth/send-email`,emailrequest)
+  }
+  signup(signuprequest:any){
+    return this.http.post(`${secondbaseurl}/api/v1/auth/register`,signuprequest)
+  }
+  signin(loginrequest:any){
+    return this.http.post(`${secondbaseurl}/api/v1/auth/authenticate`,loginrequest)
+ }
 }

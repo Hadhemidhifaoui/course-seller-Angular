@@ -49,6 +49,7 @@ export class TestsComponent implements OnInit {
           console.log('Test deleted successfully.');
           this.tests = this.tests.filter(test => test.id !== this.testToDeleteId);
           this.closeDeleteModal();
+          location.reload();
         },
         error => {
           console.error('Error deleting test:', error);

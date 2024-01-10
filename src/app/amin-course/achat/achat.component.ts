@@ -20,7 +20,7 @@ export class AchatComponent implements OnInit {
     this.purchaseService.getAllPurchases().subscribe(
       (data) => {
         this.purchases = data;
-        this.enrichPurchaseDetails(); // Enrichissez les détails pour chaque achat
+        this.enrichPurchaseDetails(); 
       },
       (error) => {
         console.error('Error fetching purchases', error);
@@ -32,7 +32,7 @@ export class AchatComponent implements OnInit {
     this.purchases.forEach(purchase => {
       this.purchaseService.getUserById(purchase.userId).subscribe(
         (userDetails) => {
-          // Enrichir les détails de l'utilisateur dans l'objet Purchase
+      
           purchase.userDetails = userDetails;
         },
         (error) => {
@@ -42,7 +42,7 @@ export class AchatComponent implements OnInit {
 
       this.purchaseService.getCourseById(purchase.courseId).subscribe(
         (courseDetails) => {
-          // Enrichir les détails du cours dans l'objet Purchase
+     
           purchase.courseDetails = courseDetails;
         },
         (error) => {

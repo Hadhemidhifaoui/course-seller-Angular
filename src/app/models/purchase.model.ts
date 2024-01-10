@@ -10,7 +10,7 @@ export class Purchase {
   purchaseTime: Date = new Date();
 
   userDetails?: User;
-  // Nouveau champ pour les détails du cours
+
   courseDetails?: Course
 
   constructor(userId?: string, courseId?: string, title: string = "", price?: number) {

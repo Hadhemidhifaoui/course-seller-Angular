@@ -5,8 +5,12 @@ import {AuthenticationService} from "./authentication.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Course} from "../models/course.model";
 import {Observable} from "rxjs";
+import { Status } from '../models/status.enum';
 
 const API_URL = 'http://localhost:5555/gateway/course';
+const baseurl ='http://localhost:3333';
+const secondbaseurl="http://localhost:5555";
+const thirdbaseurl="http://localhost:4444";
 
 @Injectable({
   providedIn: 'root'
@@ -69,8 +73,15 @@ export class CourseService extends RequestBaseService{
 
     return this.http.put<Course>(`${this.baseUrl}/${courseId}`, formData, { headers });
   }
-
+  getoneCourse(id : any){
+    return this.http.get(`${baseurl}/api/course/getCourse/${id}`)
+  }
   getCourseById(courseId: string): Observable<Course> {
     return this.http.get<Course>(`${this.baseUrl}/${courseId}`);
   }
+  updateCourseStatus(courseId: number, status: Status): Observable<any> {
+    const statusUpdateDto = { status }; // Create a StatusUpdateDto object
+    return this.http.put(`${baseurl}/api/course/updateStatus/${courseId}`, statusUpdateDto);
+  }
+
 }

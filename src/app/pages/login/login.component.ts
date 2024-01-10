@@ -4,60 +4,113 @@ import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
 import { TokenService } from 'src/app/services/token.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-
-  user = new User();
-  faUser = faUserCircle;
-  errorMessage: string = "";
-
-  constructor(private authenticationService: AuthenticationService, private router: Router, private tokenService: TokenService) { }
+export class LoginComponent {
+  loginForm!: FormGroup;
+  errorMessage!: string;
+  userconnect=JSON.parse(localStorage.getItem("userconnect")!)
+  constructor(
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private tokenService: TokenService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    if (this.authenticationService.currentUserValue?.id) {
-      this.router.navigate(['/profile']);
-      return;
-    }
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+    const userConnect = localStorage.getItem("userconnect");
+    // if (userConnect) {
+    //   this.userconnect = JSON.parse(userConnect);
+    //   console.log(this.userconnect.id);
+    // } else {
+    //   console.log('No user connected data in local storage.');
+    // }
+    console.log(this.userconnect)
   }
 
   login() {
-    this.authenticationService.login(this.user).subscribe( (response) => {
-      console.log(response);
-      // Stocker le token dans le localStorage
-      this.tokenService.setToken(response.token);
-      console.log('Logged in successfully.');
 
-      const userRole = response.userRole;
-      const userId = response.id;
+    if (this.loginForm.valid) {
+      this.authenticationService.login(this.loginForm.value).subscribe(
+        (response) => {
+          console.log(response);
+          console.log(response.userRole);
+          const userRole = response.userRole;
+          const userId = response.id;
+          this.tokenService.setToken(response.token);
+          localStorage.setItem('userRole', userRole);
+          localStorage.setItem('userId', userId);
+          console.log('Logged in successfully.');
+          if(response.enabled==true){
+          // Store user details in localStorage
+          localStorage.setItem("userconnect",JSON.stringify(response))
+          localStorage.setItem('userRole', response.userRole);
+          localStorage.setItem('userId', response.id);
+          localStorage.setItem('username', response.username);
+          localStorage.setItem('useremail', response.email);
+          localStorage.setItem('userimage', response.image);}
 
-
-      console.log(userRole);
-      console.log(userId);
-
-      // Stoker les informations de l'utilisateur dans le localStorage
-      localStorage.setItem('userRole', userRole);
-      localStorage.setItem('userId', userId);
-
-
-      if (userRole === 'USER') {
-        this.router.navigate(['/profile']);
-      } else if (userRole === 'ADMIN') {
-        this.router.navigate(['/admincourse']);
+          // Redirect based on user role
+          // Uncomment and adjust the following lines as per your routing logic
+          // if (response.userRole === 'USER') {
+          //   this.router.navigate(['/profile']);
+          // } else if (response.userRole === 'ADMIN') {
+          //   this.router.navigate(['/orgadmin']);
+          // } else {
+            if(response.userRole=='USER'){
+            this.router.navigate(['/profile']);}
+          // }
+        },
+        err => {
+          this.errorMessage = 'Username or password is incorrect.';
+          console.error(err);
+        }
+      );
+    } else {
+      this.errorMessage = 'Please fill in the form correctly.';
+    }
+  }
+  estuser():any{
+    if(this.userconnect.roles[0]=="ROLE_USER"){
+      return true;}
+      else{
+        return false;
       }
+  }
+  SignIn(){
+    this.authenticationService.signin(this.loginForm.value).subscribe((res:any)=>{
+      console.log("reponse",res)
 
-      //this.router.navigate(['/profile']);
-    },
+      if(res.enabled==true){
+        localStorage.setItem("userconnect",JSON.stringify(res))
+        localStorage.setItem('userRole', res.userRole);
+        localStorage.setItem('useremail', res.email);
+        localStorage.setItem('username', res.username);
+        localStorage.setItem('userId', res.id);
+        localStorage.setItem('userimage', res.image);}
+        this.router.navigateByUrl("/profile")
+      })
 
-     err => {
-      this.errorMessage = 'Username or password is incorrect.';
-      console.log(err);
-    })
+    }
+    // err=>{
+    //   Swal.fire({
+    //     icon:'error',
+    //     title:'user not found',
+    //     text:'email invalid',
+    //     footer:'password invalid'
+    //   })
+    //   console.log(err)
+
+    // }
+
   }
 
-
-}

@@ -33,34 +33,9 @@ export class AddCoursComponent {
   }
 
 
-
-/*   onSubmit() {
-    if (this.selectedImage !== null && this.selectedImage !== undefined) {
-      this.courseService.saveCourse(
-        this.course.title,
-        this.course.duree,
-        this.course.lien,
-        this.course.price,
-        this.selectedImage
-      ).subscribe(
-        (response) => {
-          console.log('Cours ajouté avec succès:', response);
-          this.router.navigate(['/admincourse/cours']);
-        },
-        (error) => {
-          console.error('Erreur lors de l\'ajout du cours:', error);
-        }
-      );
-    } else {
-      console.error('Veuillez sélectionner une image pour le cours.');
-    }
-  } */
-
   onSubmit() {
-    // Ensure that selectedImage is a File
-    const image: File = this.selectedImage;
 
-    // Update the model with the image property
+    const image: File = this.selectedImage;
     this.course.image = image;
 
     this.courseService.saveCourse(this.course.title, this.course.duree, this.course.lien, this.course.price, this.course.image)
@@ -71,7 +46,7 @@ export class AddCoursComponent {
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du cours:', error);
-          // Handle error as needed
+  
         }
       );
   }

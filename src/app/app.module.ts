@@ -4,13 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import { LoginComponent } from './pages/login/login.component';
+
 import { RegisterComponent } from './pages/register/register.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+
 import { AdminComponent } from './pages/admin/admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UnauthorizesComponent } from './pages/unauthorizes/unauthorizes.component';
-import { HomeComponent } from './pages/home/home.component';
+
 import {HttpClientModule} from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,19 +34,25 @@ import { DeleteConfirmationTestModalComponent } from './amin-course/delete-confi
 import { AchatComponent } from './amin-course/achat/achat.component';
 import { DeleteDeleteConfirmationUserModalComponent } from './amin-course/delete-delete-confirmation-user-modal/delete-delete-confirmation-user-modal.component';
 import { Base64ToSafeUrlPipe } from './amin-course/cours/base64-to-safe-url.pipe';
+import { PdfComponent } from './amin-course/pdf/pdf.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LayoutComponent } from './pages/layout/layout.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
+import { FooterComponent } from './pages/footer/footer.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { ToastComponent } from './pages/toast/toast.component';
+import { TestComponent } from './pages/test/test.component';
+import { TsComponent } from './pages/ts/ts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     RegisterComponent,
-    ProfileComponent,
-    AdminComponent,
     NotFoundComponent,
     UnauthorizesComponent,
-    HomeComponent,
-    Base64ToSafeUrlPipe,
-
+     Base64ToSafeUrlPipe,
     ChatboxComponent,
     AminCourseComponent,
     SidebarComponent,
@@ -64,7 +70,19 @@ import { Base64ToSafeUrlPipe } from './amin-course/cours/base64-to-safe-url.pipe
     TestDetailsComponent,
     DeleteConfirmationTestModalComponent,
     AchatComponent,
-    DeleteDeleteConfirmationUserModalComponent
+    DeleteDeleteConfirmationUserModalComponent,
+    PdfComponent,
+    LoginComponent,
+    HomeComponent,
+    AdminComponent,
+    LayoutComponent,
+    NavbarComponent,
+    FooterComponent,
+    SignupComponent,
+    ToastComponent,
+   // AchatComponent,
+    TestComponent,
+    TsComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +90,9 @@ import { Base64ToSafeUrlPipe } from './amin-course/cours/base64-to-safe-url.pipe
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    //ToastrModule.forRoot()
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

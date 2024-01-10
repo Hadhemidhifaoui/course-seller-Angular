@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
+import { Status } from 'src/app/models/status.enum';
 import { CourseService } from 'src/app/services/course.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class UpdateCoursComponent {
 
     createTime: new Date(),
     price: 0.0,
+    status: Status.Available,
 
 
     image: undefined!
@@ -62,7 +64,7 @@ export class UpdateCoursComponent {
   onSubmit() {
     const courseId = this.route.snapshot.params['id'];
 
-    // Guard clause to check if courseId is present
+
     if (!courseId) {
       console.error('Invalid courseId');
       return;

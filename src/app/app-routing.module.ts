@@ -22,20 +22,36 @@ import { UpdateCoursComponent } from './amin-course/update-cours/update-cours.co
 import { AddTestComponent } from './amin-course/add-test/add-test.component';
 import { TestDetailsComponent } from './amin-course/test-details/test-details.component';
 import { AchatComponent } from './amin-course/achat/achat.component';
+import { PdfComponent } from './amin-course/pdf/pdf.component';
+import { ToastComponent } from './pages/toast/toast.component';
+import { TestComponent } from './pages/test/test.component';
+import { TsComponent } from './pages/ts/ts.component';
+import { LayoutComponent } from './pages/layout/layout.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
+
+  {path:'',component:HomeComponent,children:[
+    {path:'',component:LayoutComponent},
+    {path:'signup',component:SignupComponent},
+    {path:'login',component:LoginComponent},
+  ]
+},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 
-  {path: 'home', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
+  //{path: 'home', component: HomeComponent},
+  //{path: 'login', component: LoginComponent},
   {path: 'chatbox', component: ChatboxComponent},
+  {path: 'pdf', component: PdfComponent},
   {path: 'register', component: RegisterComponent},
 
-  { path: 'profile',
-    component: ProfileComponent,
-    // canActivate: [AuthGuard],
-    // data: {roles: [Role.ADMIN, Role.USER]}
-  },
+  {path:'profile',component:ProfileComponent},
+{path:'toast',component:ToastComponent},
+//{path:'achat',component:AchatComponent},
+{path:'test',component:TestComponent},
+{path:'ts',component:TsComponent},
+
+
 
   { path: 'admin',
     component: AdminComponent,

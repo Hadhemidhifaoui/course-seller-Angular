@@ -26,11 +26,7 @@ export class CoursComponent {
 
   }
 
-  getSanitizedImageUrl(base64String: string): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64String);
-  }
 
-  // Méthode pour fermer le modal de suppression
   closeDeleteModal() {
     this.isModalOpen = false;
     this.courseToDeleteId = '';
